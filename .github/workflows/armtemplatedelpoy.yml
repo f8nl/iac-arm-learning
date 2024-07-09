@@ -7,7 +7,7 @@ on:
   push:
     branches:
       - main
-      
+
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -28,9 +28,17 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDS }}
 
-      - name: Deploy Resource Group rg-githubactions with AZ CLI
-        uses: Azure/cli@v2.0.0
+      # - name: Deploy Resource Group rg-githubactions with AZ CLI
+      #   uses: Azure/cli@v2.0.0
+      #   with:
+      #     inlinescript: |
+      #       az deployment sub create --location "UK South" --template-file ./arm-templates/resource-group.json
+      - name: Deploy Resource Group rg-githubactions
+        uses: Azure/arm-deploy@v2
         with:
-          inlinescript: |
-            az deployment sub create --location "UK South" --template-file ./arm-templates/resource-group.json
-      
+          scope: subscription
+          subscriptionId: 1e68b0b5-57b5-4a9f-8746-cb26c640cbca
+          region: UK South
+          template: ./arm-templates/resource-group.json
+          deploymentName: rg-githubactions
+  
