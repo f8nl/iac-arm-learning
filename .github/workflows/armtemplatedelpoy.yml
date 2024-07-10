@@ -13,7 +13,7 @@ on:
 
 env:
   resource_group_name: rg-githubactions
-  location: "UK South"
+  location: UK South
   subscriptionId: 1e68b0b5-57b5-4a9f-8746-cb26c640cbca
   
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -43,10 +43,10 @@ jobs:
         with:
           scope: subscription
           subscriptionId: ${{ env.subscriptionId }}
-          region: ${{ env.location }}
+          region: "${{ env.location }}"
           template: ./arm-templates/resource-group.json
           parameters:
-            location=${{ env.location }}
+            location="${{ env.location }}"
             resourceGroup=${{ env.resource_group_name }}
           deploymentName: ${{ env.resource_group_name }}
 
@@ -62,7 +62,7 @@ jobs:
             #./arm-templates/storage-account.parameters.json
             sku=Standard_LRS
             storageAccountName=iacf8nl002
-            location=${{ env.location }}
+            location="${{ env.location }}"
           deploymentMode: incremental
   
       # - run: echo ${{ steps.storageAccountDeploy.outputs.BlobUri }}
@@ -75,5 +75,5 @@ jobs:
           template: ./arm-templates/virtual-machine.json
           parameters: 
             adminPassword=${{ secrets.UBUNTU_ADMIN_PASSCODE }}
-            location=${{ env.location }}
+            location="${{ env.location }}"
           deploymentMode: incremental
