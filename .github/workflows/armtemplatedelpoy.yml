@@ -52,6 +52,6 @@ jobs:
           parameters: 
             ./arm-templates/storage-account.parameters.json
             storageAccountName=iacf8nl002
-            location=UK West
+            location="UK West"
           deploymentMode: incremental
   
