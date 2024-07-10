@@ -60,4 +60,14 @@ jobs:
             location="UK West"
           deploymentMode: incremental
   
-      - run: echo ${{ steps.storageAccountDeploy.outputs.BlobUri }}
+      # - run: echo ${{ steps.storageAccountDeploy.outputs.BlobUri }}
+      - name: Deploy Virtual Machine
+        uses: Azure/arm-deploy@v2
+        with:
+          scope: resourcegroup
+          resourceGroupName: rg-githubactions
+          subscriptionId: 1e68b0b5-57b5-4a9f-8746-cb26c640cbca
+          template: ./arm-templates/virtual-machine.json
+          parameters: 
+            adminPassword="My$ecureP@%sc0d3!"
+          deploymentMode: incremental
